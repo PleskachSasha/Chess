@@ -2,8 +2,8 @@
 #define PIECECOLOR_H
 
 enum PieceColor {
-    white = 1,
-    black = 2,
+    white = 0,
+    black = 1,
 };
 
 #endif // PIECECOLOR_H
