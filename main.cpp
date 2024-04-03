@@ -1,5 +1,6 @@
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
+#include "PieceArr.h"
 
 int main(int argc, char *argv[])
 {
@@ -8,7 +9,11 @@ int main(int argc, char *argv[])
 #endif
     QGuiApplication app(argc, argv);
 
+    PieceArr whitePieces(1);
+    PieceArr blackPieces(0);
     QQmlApplicationEngine engine;
+    engine.rootContext()->setContextProperty("whitePieces", &whitePieces);
+    engine.rootContext()->setContextProperty("blackPieces", &blackPieces);
     const QUrl url(QStringLiteral("qrc:/main.qml"));
     QObject::connect(
         &engine,

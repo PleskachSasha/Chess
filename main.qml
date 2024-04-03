@@ -101,11 +101,21 @@ Window {
                     height: board.height/10
                     color: (index + Math.floor(index / 8)) % 2 ? "#8B4513" : "#654321"
 
-                    MouseArea {
-                        anchors.fill: parent
-                        onClicked: {
-                            rect.color = "red"
-                        }
+                    // MouseArea {
+                    //     anchors.fill: parent
+                    //     onClicked: {
+                    //         rect.color = "red"
+                    //     }
+                    // }
+                }
+                Rectangle {
+                    width: board.width / 10
+                    height: board.height / 10
+                    color: "white"
+                    Image {
+                        source: whitePieces.get(index).image_path
+                        anchors.centerIn: parent
+                        fillMode: Image.PreserveAspectFit
                     }
                 }
             }
