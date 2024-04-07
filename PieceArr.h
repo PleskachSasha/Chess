@@ -5,18 +5,23 @@
 #include "PieceType.h"
 #include <array>
 #include <tuple>
+#include <QObject>
+#include "iostream"
 
-class PieceArr
+
+
+class PieceArr : public QObject
 {
+    Q_OBJECT
+
 public:
-    PieceArr(){}
-    PieceArr(int color) {
+    PieceArr(PieceColor color) {
         createArray(color);
     }
 
 private:
-    void createArray(int color) {
-        std::string strColor = color ? "white" : "black";
+    void createArray(PieceColor color) {
+        std::string strColor = static_cast<int>(color) ? "white" : "black";
         const std::string pawnImage = strColor + "_pawn.png";
         const std::string castleImage = strColor + "_castle.png";
         const std::string knightImage = strColor + "_knight.png";
@@ -38,16 +43,17 @@ private:
         pieces[11] = createPiece(PieceType::Knight, knightImage, std::make_pair(6, backRow), false);
         pieces[12] = createPiece(PieceType::Bishop, bishopImage, std::make_pair(2, backRow), false);
         pieces[13] = createPiece(PieceType::Bishop, bishopImage, std::make_pair(5, backRow), false);
-        pieces[14] = createPiece(PieceType::Queen,  queenImage,  std::make_pair(3, backRow), false);
-        pieces[15] = createPiece(PieceType::King,   kingImage,   std::make_pair(4, backRow), false);
+        pieces[14] = createPiece(PieceType::King,   kingImage,   std::make_pair(4, backRow), false);
+        pieces[15] = createPiece(PieceType::Queen,  queenImage,  std::make_pair(3, backRow), false);
     }
     Piece createPiece(PieceType type, std::string image_path, std::pair<int, int> position, bool is_killed){
-
+        return Piece(type, image_path, position, is_killed, color);
     }
+
 
     static constexpr int size{16};
 
-protected:
+public:
     PieceColor color;
     std::array<Piece, size> pieces;
 };

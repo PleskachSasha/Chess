@@ -1,7 +1,7 @@
 import QtQuick 2.15
 import QtQuick.Window 2.15
 import QtQuick.Controls 2.15
-
+import PieceArr 1.0
 Window {
     id: window
     width: 1000
@@ -33,7 +33,6 @@ Window {
                 }
             }
         }
-
         Row{
             x: 0
             y: board.height - board.height/10;
@@ -87,35 +86,19 @@ Window {
         }
 
         Grid {
+            id: grid
             x: board.width/10
             y: board.height/10
             rows: 8
             columns: 8
-
             Repeater {
-                model: 64
-
+               model: 64
                 Rectangle {
                     id: rect
                     width: board.width/10
                     height: board.height/10
                     color: (index + Math.floor(index / 8)) % 2 ? "#8B4513" : "#654321"
-
-                    // MouseArea {
-                    //     anchors.fill: parent
-                    //     onClicked: {
-                    //         rect.color = "red"
-                    //     }
-                    // }
-                }
-                Rectangle {
-                    width: board.width / 10
-                    height: board.height / 10
-                    color: "white"
                     Image {
-                        source: whitePieces.get(index).image_path
-                        anchors.centerIn: parent
-                        fillMode: Image.PreserveAspectFit
                     }
                 }
             }
