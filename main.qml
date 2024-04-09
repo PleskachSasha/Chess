@@ -10,7 +10,7 @@ Window {
     minimumHeight: 500
     minimumWidth: 500
     visible: true
-    color: "#A52A2A"
+    color: "#D1BB9E"
 
     Rectangle {
         id: board
@@ -22,14 +22,16 @@ Window {
             Repeater {
                 model: 10
                 Rectangle {
+
                     width:  board.width/10
                     height: board.height/10
                     Text {
                         anchors.centerIn: parent
                         font.pixelSize: 32
                         text: (index === 9 || index === 0) ? "" : String.fromCharCode(65 + index - 1)
+                        color: "transparent"
                     }
-                    color: "#A52A2A"
+                    color: "#D1BB9E"
                 }
             }
         }
@@ -45,12 +47,12 @@ Window {
                         anchors.centerIn: parent
                         font.pixelSize: 32
                         text: (index === 9 || index === 0) ? "" : String.fromCharCode(65 + index - 1)
+                        color: "transparent"
                     }
-                    color: "#A52A2A"
+                    color: "#D1BB9E"
                 }
             }
         }
-
         Column{
             x: board.width - board.width/10
             y: 0;
@@ -63,8 +65,9 @@ Window {
                         anchors.centerIn: parent
                         text: (index === 9 || index === 0) ? "" : (10 - index - 1)
                         font.pixelSize: 32
+                        color: "transparent"
                     }
-                    color: "#A52A2A"
+                    color: "#D1BB9E"
                 }
             }
         }
@@ -79,8 +82,9 @@ Window {
                         anchors.centerIn: parent
                         text: (index === 9 || index === 0) ? "" : (10 - index - 1)
                         font.pixelSize: 32
+                        color: "transparent"
                     }
-                    color: "#A52A2A"
+                    color: "#D1BB9E"
                 }
             }
         }
@@ -92,13 +96,16 @@ Window {
             rows: 8
             columns: 8
             Repeater {
-               model: 64
+                model: 64
                 Rectangle {
                     id: rect
                     width: board.width/10
                     height: board.height/10
-                    color: (index + Math.floor(index / 8)) % 2 ? "#8B4513" : "#654321"
-                    Image {
+                    color: (index + Math.floor(index / 8)) % 2 ? "#EAD8C0" : "#A79277"
+
+                     Image {
+                        source: whitePieces.callMeImage(Math.floor(index / grid.columns), index % grid.columns);
+                        anchors.centerIn: parent
                     }
                 }
             }

@@ -1,6 +1,7 @@
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
 #include <QtQml/QQmlContext>
+#include <QQmlContext>
 #include "PieceArr.h"
 #include "PieceColor.h"
 
@@ -16,7 +17,6 @@ int main(int argc, char *argv[])
     PieceArr whitePieces(PieceColor::white);
     //PieceArr blackPieces(PieceColor::black);
     QQmlApplicationEngine engine;
-    engine.rootContext()->setContextProperty("whitePieces", &whitePieces);
     //engine.rootContext()->setContextProperty("blackPieces", QVariant::fromValue(&blackPieces));
 
     const QUrl url(QStringLiteral("qrc:/main.qml"));
@@ -30,6 +30,9 @@ int main(int argc, char *argv[])
         },
         Qt::QueuedConnection);
     engine.load(url);
+
+    QQmlContext * white = engine.rootContext();
+    white->setContextProperty("whitePieces", &whitePieces);
 
     return app.exec();
 }
