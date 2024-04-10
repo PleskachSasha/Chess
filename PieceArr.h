@@ -30,20 +30,23 @@ public slots:
         qDebug() << "debug" << "debug";}
 
 
-    void callMeImage(const int x, const int y){
+    QString callMeImage(const int x, const int y){
+        //qDebug() << "x-" << x << "y-" << y << " ";
         auto it = std::find_if(pieces.begin(), pieces.end(), [&](const Piece& piece) {
-            return comparePosition(x, y);
+            return piece.position.first == x && piece.position.second == y;
         });
-        qDebug() << it << "  ";
+        if (it != pieces.end()) {
+            return it->image_path;
+        } else {
+            return QString(); // or return a default image path
+        }
     }
     QUrl convertToQUrl(const QString& imagePath) {
          QUrl url = QUrl::fromLocalFile(imagePath);
         return url;
     }
 private:
-    bool comparePosition(int x, int y) {
-        return pieces.position.first == x && pieces.position.second == y;
-    }
+
     void createArray(PieceColor color) {
         QString strColor = static_cast<int>(color) ? "black" : "white";
         const QString pawnImage = strColor + "_pawn.png";

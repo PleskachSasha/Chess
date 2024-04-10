@@ -103,8 +103,13 @@ Window {
                     height: board.height/10
                     color: (index + Math.floor(index / 8)) % 2 ? "#EAD8C0" : "#A79277"
 
-                     Image {
-                        source: whitePieces.callMeImage(Math.floor(index / grid.columns), index % grid.columns);
+                    Image {
+                        source: whitePieces.callMeImage(index % grid.columns, Math.floor(index / grid.columns));
+                        anchors.centerIn: parent
+                    }
+
+                    Image{
+                        source: blackPieces.callMeImage(index % grid.columns, Math.floor(index / grid.columns));
                         anchors.centerIn: parent
                     }
                 }

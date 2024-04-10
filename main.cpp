@@ -15,9 +15,8 @@ int main(int argc, char *argv[])
     qmlRegisterType<PieceArr>("PieceArr", 1, 0, "PieceArr");
 
     PieceArr whitePieces(PieceColor::white);
-    //PieceArr blackPieces(PieceColor::black);
+    PieceArr blackPieces(PieceColor::black);
     QQmlApplicationEngine engine;
-    //engine.rootContext()->setContextProperty("blackPieces", QVariant::fromValue(&blackPieces));
 
     const QUrl url(QStringLiteral("qrc:/main.qml"));
     QObject::connect(
@@ -33,6 +32,8 @@ int main(int argc, char *argv[])
 
     QQmlContext * white = engine.rootContext();
     white->setContextProperty("whitePieces", &whitePieces);
+    QQmlContext * black = engine.rootContext();
+    white->setContextProperty("blackPieces", &blackPieces);
 
     return app.exec();
 }
