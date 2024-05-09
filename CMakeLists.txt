@@ -20,8 +20,8 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
     qt_add_executable(chess
         MANUAL_FINALIZATION
         ${PROJECT_SOURCES}
-        Piece.h
-        PieceType.h
+        FigureBase.h
+        FigureType.h
         Pawn.h
         PawnMoveDirection.h
         Castle.h
@@ -29,8 +29,8 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         Bishop.h
         Queen.h
         King.h
-        PieceArr.h PieceArr.cpp
-        PieceColor.h
+        FigureArr.h FigureArr.cpp
+        FigureColor.h
     )
 
 # Define target properties for Android with Qt 6 as:

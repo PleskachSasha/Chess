@@ -1,7 +1,7 @@
 import QtQuick 2.15
 import QtQuick.Window 2.15
 import QtQuick.Controls 2.15
-import PieceArr 1.0
+import FigureArr 1.0
 Window {
     id: window
     width: 1000
@@ -11,7 +11,9 @@ Window {
     minimumWidth: 500
     visible: true
     color: "#D1BB9E"
-
+    Component.onCompleted: {
+            console.log("Figures object:", figures)
+        }
     Rectangle {
         id: board
         width: parent.width
@@ -104,13 +106,15 @@ Window {
                     color: (index + Math.floor(index / 8)) % 2 ? "#EAD8C0" : "#A79277"
 
                     Image {
-                        source: whitePieces.callMeImage(index % grid.columns, Math.floor(index / grid.columns));
+                        source: figures_arr.callMeImage(index % grid.columns, Math.floor(index / grid.columns));
                         anchors.centerIn: parent
                     }
 
-                    Image{
-                        source: blackPieces.callMeImage(index % grid.columns, Math.floor(index / grid.columns));
-                        anchors.centerIn: parent
+                    MouseArea {
+                        anchors.fill: parent
+                        onClicked: {
+                            figures_arr.moveTo(index % grid.columns, Math.floor(index / grid.columns));
+                        }
                     }
                 }
             }

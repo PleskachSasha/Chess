@@ -2,8 +2,8 @@
 #include <QQmlApplicationEngine>
 #include <QtQml/QQmlContext>
 #include <QQmlContext>
-#include "PieceArr.h"
-#include "PieceColor.h"
+#include "FigureArr.h"
+#include "FigureColor.h"
 
 int main(int argc, char *argv[])
 {
@@ -12,10 +12,9 @@ int main(int argc, char *argv[])
 #endif
     QGuiApplication app(argc, argv);
 
-    qmlRegisterType<PieceArr>("PieceArr", 1, 0, "PieceArr");
+    qmlRegisterType<FigureArr>("FigureArr", 1, 0, "FigureArr");
 
-    PieceArr whitePieces(PieceColor::white);
-    PieceArr blackPieces(PieceColor::black);
+    FigureArr figures_arr;
     QQmlApplicationEngine engine;
 
     const QUrl url(QStringLiteral("qrc:/main.qml"));
@@ -30,10 +29,8 @@ int main(int argc, char *argv[])
         Qt::QueuedConnection);
     engine.load(url);
 
-    QQmlContext * white = engine.rootContext();
-    white->setContextProperty("whitePieces", &whitePieces);
-    QQmlContext * black = engine.rootContext();
-    white->setContextProperty("blackPieces", &blackPieces);
+    QQmlContext * rootContext = engine.rootContext();
+    rootContext->setContextProperty("figures_arr", &figures_arr);
 
     return app.exec();
 }

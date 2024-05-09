@@ -1,8 +1,9 @@
 #ifndef CASTLE_H
 #define CASTLE_H
-#include "Piece.h"
+#include "FigureBase.h"
 
-class Castle : public Piece {
+class Castle : public FigureBase {
+private:
     bool castling;
 };
 

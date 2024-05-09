@@ -1,17 +1,17 @@
 <RCC>
     <qresource prefix="/">
         <file>main.qml</file>
-        <file>white_queen.png</file>
-        <file>white_pawn.png</file>
-        <file>white_knight.png</file>
-        <file>white_king.png</file>
-        <file>white_castle.png</file>
-        <file>white_bishop.png</file>
-        <file>black_queen.png</file>
-        <file>black_pawn.png</file>
-        <file>black_knight.png</file>
-        <file>black_king.png</file>
-        <file>black_castle.png</file>
-        <file>black_bishop.png</file>
+        <file>images/black_bishop.png</file>
+        <file>images/black_castle.png</file>
+        <file>images/black_king.png</file>
+        <file>images/black_knight.png</file>
+        <file>images/black_pawn.png</file>
+        <file>images/black_queen.png</file>
+        <file>images/white_bishop.png</file>
+        <file>images/white_castle.png</file>
+        <file>images/white_king.png</file>
+        <file>images/white_knight.png</file>
+        <file>images/white_pawn.png</file>
+        <file>images/white_queen.png</file>
     </qresource>
 </RCC>

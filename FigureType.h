@@ -1,7 +1,7 @@
-#ifndef PIECETYPE_H
-#define PIECETYPE_H
+#ifndef FIGURETYPE_H
+#define FIGURETYPE_H
 
-enum PieceType{
+enum FigureType{
     Pawn = 1,
     Bishop = 2,
     Knight = 3,
@@ -10,4 +10,4 @@ enum PieceType{
     King = 6
 };
 
-#endif // PIECETYPE_H
+#endif // FIGURETYPE_H

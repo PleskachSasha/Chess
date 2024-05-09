@@ -1,9 +1,9 @@
 #ifndef QUEEN_H
 #define QUEEN_H
 #include <string>
-#include "Piece.h"
+#include "FigureBase.h"
 
-class Queen : public Piece {
+class Queen : public FigureBase {
 };
 
 #endif // QUEEN_H

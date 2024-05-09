@@ -1,8 +1,8 @@
 #ifndef KING_H
 #define KING_H
-#include "Piece.h"
+#include "FigureBase.h"
 
-class King : public Piece {
+class King : public FigureBase {
     bool castling;
 };
 
