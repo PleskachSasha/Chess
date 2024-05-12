@@ -106,7 +106,7 @@ Window {
                     color: (index + Math.floor(index / 8)) % 2 ? "#EAD8C0" : "#A79277"
 
                     Image {
-                        source: figures_arr.callMeImage(index % grid.columns, Math.floor(index / grid.columns));
+                        source: figures_arr.callImage(index % grid.columns, Math.floor(index / grid.columns));
                         anchors.centerIn: parent
                     }
 
