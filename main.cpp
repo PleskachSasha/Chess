@@ -14,7 +14,7 @@ int main(int argc, char *argv[])
 
     qmlRegisterType<FigureArr>("FigureArr", 1, 0, "FigureArr");
 
-    FigureArr figures_arr;
+    // FigureArr figures_arr;
     QQmlApplicationEngine engine;
 
     const QUrl url(QStringLiteral("qrc:/main.qml"));
@@ -29,8 +29,8 @@ int main(int argc, char *argv[])
         Qt::QueuedConnection);
     engine.load(url);
 
-    QQmlContext * rootContext = engine.rootContext();
-    rootContext->setContextProperty("figures_arr", &figures_arr);
+    // QQmlContext * rootContext = engine.rootContext();
+    // rootContext->setContextProperty("figures_arr", &figures_arr);
 
     return app.exec();
 }

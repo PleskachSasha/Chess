@@ -10,10 +10,9 @@ Window {
     minimumHeight: 500
     minimumWidth: 500
     visible: true
+
     color: "#D1BB9E"
-    Component.onCompleted: {
-            console.log("Figures object:", figures)
-        }
+    FigureArr{ id: arr}
     Rectangle {
         id: board
         width: parent.width
@@ -106,17 +105,21 @@ Window {
                     color: (index + Math.floor(index / 8)) % 2 ? "#EAD8C0" : "#A79277"
 
                     Image {
-                        source: figures_arr.callImage(index % grid.columns, Math.floor(index / grid.columns));
+                        id: image
+                        source: arr.callImage(index % grid.columns, Math.floor(index / grid.columns));
                         anchors.centerIn: parent
                     }
 
                     MouseArea {
                         anchors.fill: parent
                         onClicked: {
-                            figures_arr.moveTo(index % grid.columns, Math.floor(index / grid.columns));
+                            arr.onMove(index % grid.columns, Math.floor(index / grid.columns));
                         }
                     }
                 }
+            }
+            Component.onCompleted: {
+                arr.move.connect()
             }
         }
     }

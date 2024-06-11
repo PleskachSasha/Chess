@@ -19,16 +19,16 @@
 class FigureArr : public QObject
 {
     Q_OBJECT
-
 public:
     explicit FigureArr() {
         addFigureToArray(FigureColor::white);
         addFigureToArray(FigureColor::black);
     }
 signals:
-    void figureMoved(int x, int y);
+    void move(const int x, const int y);
 public slots:
     QString callImage(const int x, const int y){
+        qDebug() << "terst";
         auto it = std::find_if(figures.begin(), figures.end(), [&](const FigureBase& figure_base) {
             return figure_base.position.first == x && figure_base.position.second == y;
         });
@@ -38,21 +38,25 @@ public slots:
             return QString(); // or return a default image path
         }
     }
+
     QUrl convertToQUrl(const QString& imagePath) {
         QUrl url = QUrl::fromLocalFile(imagePath);
         return url;
     }
-    // void moveTo(const int x, const int y){
-    //     auto it = std::find_if(figures.begin(), figures.end(), [&](const FigureBase& figure_base) {
-    //         return figure_base.position.first == x && figure_base.position.second == y;
-    //     });
-    //     if (it != figures.end()) {
-    //         it->position.second += 1;
-    //         emit figureMoved(x, y);
-    //     }
-    // }
-private:
 
+    Q_INVOKABLE void onMove(const int x, const int y){
+        qDebug() << "tеst message moveTo" << x << "--" << y;
+        auto it = std::find_if(figures.begin(), figures.end(), [&](const FigureBase& figure_base) {
+            return figure_base.position.first == x && figure_base.position.second == y;
+        });
+        if (it != figures.end()) {
+            it->position.first = 4;
+            it->position.second = 4;
+        }
+        emit move(4, 4);
+    }
+
+private:
     void addFigureToArray(FigureColor color) {
         QString strColor = static_cast<int>(color) ? "black" : "white";
         int colorPosititon = static_cast<int>(color) ? 0 : 48;
@@ -67,17 +71,17 @@ private:
         const int backRow = color ? 0 : 7;
         for(size_t i{0}; i < 8; ++i){
             std::pair<int, int> position(i, pawnRow);
-            figures[colorPosititon + i] = createFigure(FigureType::Pawn, pawnImage, position, false, color);
+            figures.push_back(createFigure(FigureType::Pawn, pawnImage, position, false, color));
         }
 
-        figures[colorPosititon + 8] = createFigure(FigureType::Castle, castleImage, std::make_pair(0, backRow), false, color);
-        figures[colorPosititon + 9] = createFigure(FigureType::Castle, castleImage, std::make_pair(7, backRow), false, color);
-        figures[colorPosititon + 10] = createFigure(FigureType::Knight, knightImage, std::make_pair(1, backRow), false, color);
-        figures[colorPosititon + 11] = createFigure(FigureType::Knight, knightImage, std::make_pair(6, backRow), false, color);
-        figures[colorPosititon + 12] = createFigure(FigureType::Bishop, bishopImage, std::make_pair(2, backRow), false, color);
-        figures[colorPosititon + 13] = createFigure(FigureType::Bishop, bishopImage, std::make_pair(5, backRow), false, color);
-        figures[colorPosititon + 14] = createFigure(FigureType::King,   kingImage,   std::make_pair(4, backRow), false, color);
-        figures[colorPosititon + 15] = createFigure(FigureType::Queen,  queenImage,  std::make_pair(3, backRow), false, color);
+        figures.push_back(createFigure(FigureType::Castle, castleImage, std::make_pair(0, backRow), false, color));
+        figures.push_back(createFigure(FigureType::Castle, castleImage, std::make_pair(7, backRow), false, color));
+        figures.push_back(createFigure(FigureType::Knight, knightImage, std::make_pair(1, backRow), false, color));
+        figures.push_back(createFigure(FigureType::Knight, knightImage, std::make_pair(6, backRow), false, color));
+        figures.push_back(createFigure(FigureType::Bishop, bishopImage, std::make_pair(2, backRow), false, color));
+        figures.push_back(createFigure(FigureType::Bishop, bishopImage, std::make_pair(5, backRow), false, color));
+        figures.push_back(createFigure(FigureType::King,   kingImage,   std::make_pair(4, backRow), false, color));
+        figures.push_back(createFigure(FigureType::Queen,  queenImage,  std::make_pair(3, backRow), false, color));
     }
     FigureBase createFigure(FigureType type, QString image_path, std::pair<int, int> position, bool is_killed, FigureColor color){
         return FigureBase(type, image_path, position, is_killed, color);
@@ -85,7 +89,6 @@ private:
     static const int size{64};
 public:
     FigureColor color;
-    std::array<FigureBase, size> figures;
+    std::vector<FigureBase> figures;
 };
-
 #endif // FIGUREARR_H
