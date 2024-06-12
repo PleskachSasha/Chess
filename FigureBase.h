@@ -5,6 +5,7 @@
 #include <tuple>
 #include <string>
 #include <QString>
+#include <QDebug>
 
 class FigureBase{
 public:
@@ -19,6 +20,15 @@ public:
     std::pair<int, int> position;
     bool is_killed;
     FigureColor color;
+
+    friend QDebug operator<<(QDebug dbg, const FigureBase &figure) {
+        dbg.nospace() << "FigureBase(type: " << static_cast<int>(figure.type)
+                      << ", image_path: " << figure.image_path
+                      << ", position: (" << figure.position.first << ", " << figure.position.second << ")"
+                      << ", is_killed: " << figure.is_killed
+                      << ", color: " << static_cast<int>(figure.color) << ")";
+        return dbg.space();
+    }
 };
 
 #endif // FIGUREBASE_H

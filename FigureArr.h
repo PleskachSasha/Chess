@@ -7,14 +7,11 @@
 #include <tuple>
 #include <QObject>
 #include <QDebug>
-#include <array>
 #include <utility>
 #include <string>
 #include <QUrl>
 #include <QString>
 #include "iostream"
-
-
 
 class FigureArr : public QObject
 {
@@ -25,10 +22,10 @@ public:
         addFigureToArray(FigureColor::black);
     }
 signals:
-    void move(const int x, const int y);
+    void move();
+
 public slots:
     QString callImage(const int x, const int y){
-        qDebug() << "terst";
         auto it = std::find_if(figures.begin(), figures.end(), [&](const FigureBase& figure_base) {
             return figure_base.position.first == x && figure_base.position.second == y;
         });
@@ -43,17 +40,16 @@ public slots:
         QUrl url = QUrl::fromLocalFile(imagePath);
         return url;
     }
-
-    Q_INVOKABLE void onMove(const int x, const int y){
-        qDebug() << "tеst message moveTo" << x << "--" << y;
+    Q_INVOKABLE void onMove(const int fromX, const int fromY, const int toX, const int toY) {
         auto it = std::find_if(figures.begin(), figures.end(), [&](const FigureBase& figure_base) {
-            return figure_base.position.first == x && figure_base.position.second == y;
+            return figure_base.position.first == fromX && figure_base.position.second == fromY;
         });
+        qDebug() << it->type;
         if (it != figures.end()) {
-            it->position.first = 4;
-            it->position.second = 4;
+            it->position.first = toX;
+            it->position.second = toY;
+            emit move();
         }
-        emit move(4, 4);
     }
 
 private:

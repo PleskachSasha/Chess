@@ -96,14 +96,22 @@ Window {
             y: board.height/10
             rows: 8
             columns: 8
+            property int selectedX: -1
+            property int selectedY: -1
+
+            function forceLayout() {
+                    for (let i = 0; i < 64; i++) {
+                        grid.children[i].children[0].source = arr.callImage(i % grid.columns, Math.floor(i / grid.columns));
+                    }
+                }
             Repeater {
                 model: 64
                 Rectangle {
                     id: rect
                     width: board.width/10
                     height: board.height/10
-                    color: (index + Math.floor(index / 8)) % 2 ? "#EAD8C0" : "#A79277"
-
+                    //color: (index + Math.floor(index / 8)) % 2 ? "#EAD8C0" : "#A79277"
+                    color: grid.selectedX !== -1 && grid.selectedY !== -1 ? "#00FF00" : (index + Math.floor(index / 8)) % 2 ? "#EAD8C0" : "#A79277"
                     Image {
                         id: image
                         source: arr.callImage(index % grid.columns, Math.floor(index / grid.columns));
@@ -113,13 +121,28 @@ Window {
                     MouseArea {
                         anchors.fill: parent
                         onClicked: {
-                            arr.onMove(index % grid.columns, Math.floor(index / grid.columns));
+                            let clickedX = index % grid.columns;
+                            let clickedY = Math.floor(index / grid.columns);
+
+                            if (grid.selectedX === -1 && grid.selectedY === -1) {
+                                grid.selectedX = clickedX;
+                                grid.selectedY = clickedY;
+                            } else {
+                                arr.onMove(grid.selectedX, grid.selectedY, clickedX, clickedY);
+                                grid.selectedX = -1;
+                                grid.selectedY = -1;
+                            }
+                            grid.forceLayout();
                         }
+                        // anchors.fill: parent
+                        // onClicked: {
+                        //     arr.onMove(index % grid.columns, Math.floor(index / grid.columns));
+                        // }
                     }
                 }
             }
             Component.onCompleted: {
-                arr.move.connect()
+                arr.move.connect(grid.forceLayout)
             }
         }
     }
