@@ -6,4 +6,4 @@ enum PawnMoveDirection{
     down = 2
 };
 
-#endif // PAWNMOVEDIRECTION_H
+#endif

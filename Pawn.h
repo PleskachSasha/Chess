@@ -9,4 +9,4 @@ class Pawn : public FigureBase {
     bool end_board;
 };
 
-#endif // PAWN_H
+#endif

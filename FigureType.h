@@ -10,4 +10,4 @@ enum FigureType{
     King = 6
 };
 
-#endif // FIGURETYPE_H
+#endif

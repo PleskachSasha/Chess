@@ -6,4 +6,4 @@ class King : public FigureBase {
     bool castling;
 };
 
-#endif // KING_H
+#endif

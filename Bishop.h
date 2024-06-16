@@ -5,4 +5,4 @@
 class Bishop : public FigureBase {
 };
 
-#endif // BISHOP_H
+#endif

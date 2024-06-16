@@ -6,4 +6,4 @@ enum FigureColor {
     black = 1,
 };
 
-#endif // FIGURECOLOR_H
+#endif

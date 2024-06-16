@@ -110,7 +110,6 @@ Window {
                     id: rect
                     width: board.width/10
                     height: board.height/10
-                    //color: (index + Math.floor(index / 8)) % 2 ? "#EAD8C0" : "#A79277"
                     color: grid.selectedX !== -1 && grid.selectedY !== -1 ? "#00FF00" : (index + Math.floor(index / 8)) % 2 ? "#EAD8C0" : "#A79277"
                     Image {
                         id: image
@@ -127,6 +126,7 @@ Window {
                             if (grid.selectedX === -1 && grid.selectedY === -1) {
                                 grid.selectedX = clickedX;
                                 grid.selectedY = clickedY;
+                                arr.possibleMove(clickedX, clickedY);
                             } else {
                                 arr.onMove(grid.selectedX, grid.selectedY, clickedX, clickedY);
                                 grid.selectedX = -1;
@@ -134,10 +134,6 @@ Window {
                             }
                             grid.forceLayout();
                         }
-                        // anchors.fill: parent
-                        // onClicked: {
-                        //     arr.onMove(index % grid.columns, Math.floor(index / grid.columns));
-                        // }
                     }
                 }
             }

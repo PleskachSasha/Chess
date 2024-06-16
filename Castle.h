@@ -7,4 +7,4 @@ private:
     bool castling;
 };
 
-#endif // CASTLE_H
+#endif

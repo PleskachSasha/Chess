@@ -14,7 +14,6 @@ int main(int argc, char *argv[])
 
     qmlRegisterType<FigureArr>("FigureArr", 1, 0, "FigureArr");
 
-    // FigureArr figures_arr;
     QQmlApplicationEngine engine;
 
     const QUrl url(QStringLiteral("qrc:/main.qml"));

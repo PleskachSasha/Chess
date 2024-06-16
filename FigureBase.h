@@ -31,4 +31,4 @@ public:
     }
 };
 
-#endif // FIGUREBASE_H
+#endif

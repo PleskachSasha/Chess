@@ -6,4 +6,4 @@
 class Queen : public FigureBase {
 };
 
-#endif // QUEEN_H
+#endif

@@ -5,4 +5,4 @@
 class Knight : public FigureBase {
 };
 
-#endif // KNIGHT_H
+#endif

@@ -32,7 +32,7 @@ public slots:
         if (it != figures.end()) {
             return it->image_path;
         } else {
-            return QString(); // or return a default image path
+            return QString();
         }
     }
 
@@ -50,6 +50,95 @@ public slots:
             it->position.second = toY;
             emit move();
         }
+    }
+    std::vector<std::pair<int, int>> possibleMove(const int x, const int y) {
+        auto it = std::find_if(figures.begin(), figures.end(), [&](const FigureBase& figure_base) {
+            return figure_base.position.first == x && figure_base.position.second == y;
+        });
+
+        if (it == figures.end()) {
+            return {}; // No figure at the given position
+        }
+
+        FigureType type = it->type;
+        FigureColor color = it->color;
+        std::vector<std::pair<int, int>> moves;
+
+        switch (type) {
+        case Pawn:
+            if (color == FigureColor::white) {
+                moves.push_back({x, y + 1});
+                if (y == 2) { // Initial two-step move for white pawns
+                    moves.push_back({x, y + 2});
+                }
+            } else {
+                moves.push_back({x, y - 1});
+                if (y == 7) {
+                    moves.push_back({x, y - 2});
+                }
+            }
+            break;
+
+        case Bishop:
+            for (int i = 1; i < 8; ++i) {
+                moves.push_back({x + i, y + i});
+                moves.push_back({x + i, y - i});
+                moves.push_back({x - i, y + i});
+                moves.push_back({x - i, y - i});
+            }
+            break;
+
+        case Knight:
+            moves.push_back({x + 2, y + 1});
+            moves.push_back({x + 2, y - 1});
+            moves.push_back({x - 2, y + 1});
+            moves.push_back({x - 2, y - 1});
+            moves.push_back({x + 1, y + 2});
+            moves.push_back({x + 1, y - 2});
+            moves.push_back({x - 1, y + 2});
+            moves.push_back({x - 1, y - 2});
+            break;
+
+        case Castle:
+            for (int i = 1; i < 8; ++i) {
+                moves.push_back({x + i, y});
+                moves.push_back({x - i, y});
+                moves.push_back({x, y + i});
+                moves.push_back({x, y - i});
+            }
+            break;
+
+        case Queen:
+            for (int i = 1; i < 8; ++i) {
+                moves.push_back({x + i, y});
+                moves.push_back({x - i, y});
+                moves.push_back({x, y + i});
+                moves.push_back({x, y - i});
+                moves.push_back({x + i, y + i});
+                moves.push_back({x + i, y - i});
+                moves.push_back({x - i, y + i});
+                moves.push_back({x - i, y - i});
+            }
+            break;
+
+        case King:
+            moves.push_back({x + 1, y});
+            moves.push_back({x - 1, y});
+            moves.push_back({x, y + 1});
+            moves.push_back({x, y - 1});
+            moves.push_back({x + 1, y + 1});
+            moves.push_back({x + 1, y - 1});
+            moves.push_back({x - 1, y + 1});
+            moves.push_back({x - 1, y - 1});
+            break;
+        }
+
+        moves.erase(std::remove_if(moves.begin(), moves.end(), [](const std::pair<int, int>& move) {
+                        return move.first < 1 || move.first > 8 || move.second < 1 || move.second > 8;
+                    }), moves.end());
+
+
+        return moves;
     }
 
 private:
@@ -87,4 +176,4 @@ public:
     FigureColor color;
     std::vector<FigureBase> figures;
 };
-#endif // FIGUREARR_H
+#endif
